@@ -77,8 +77,8 @@ module SitemapGenerator
 
           unless SitemapGenerator::Utilities.blank?(self[:news])
             news_data = self[:news]
-            builder.news:news do
-              builder.news:publication do
+            builder.news :news do
+              builder.news :publication do
                 builder.news :name, news_data[:publication_name].to_s if news_data[:publication_name]
                 builder.news :language, news_data[:publication_language].to_s if news_data[:publication_language]
               end
@@ -93,7 +93,7 @@ module SitemapGenerator
           end
 
           self[:images].each do |image|
-            builder.image:image do
+            builder.image :image do
               builder.image :loc, image[:loc]
               builder.image :caption, image[:caption].to_s             if image[:caption]
               builder.image :geo_location, image[:geo_location].to_s   if image[:geo_location]
