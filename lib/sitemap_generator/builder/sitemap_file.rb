@@ -142,7 +142,6 @@ module SitemapGenerator
         buffer.write(@xml_wrapper_end)
         @location.write(buffer.string, link_count)
         buffer.close
-        @xml_content = @xml_wrapper_start = @xml_wrapper_end = ''
         @written = true
       end
 
