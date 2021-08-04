@@ -136,7 +136,12 @@ module SitemapGenerator
         raise SitemapGenerator::SitemapError.new("Sitemap already written!") if written?
         finalize! unless finalized?
         reserve_name
-        @location.write(@xml_wrapper_start + @xml_content + @xml_wrapper_end, link_count)
+        buffer = StringIO.new
+        buffer.write(@xml_wrapper_start)
+        buffer.write(@xml_content)
+        buffer.write(@xml_wrapper_end)
+        @location.write(buffer.string, link_count)
+        buffer.close
         @xml_content = @xml_wrapper_start = @xml_wrapper_end = ''
         @written = true
       end
