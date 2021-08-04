@@ -24,7 +24,7 @@ module SitemapGenerator
         @location = opts.is_a?(Hash) ? SitemapGenerator::SitemapLocation.new(opts) : opts
         @link_count = 0
         @news_count = 0
-        @xml_content = '' # XML urlset content
+        @xml_content = nil # XML urlset content
         @xml_wrapper_start = <<-HTML
           <?xml version="1.0" encoding="UTF-8"?>
             <urlset
@@ -107,7 +107,12 @@ module SitemapGenerator
         end
 
         # Add the XML to the sitemap
-        @xml_content << xml
+        if @xml_content
+          @xml_content << xml
+        else
+          @xml_content = xml
+        end
+
         @filesize += SitemapGenerator::Utilities.bytesize(xml)
         @link_count += 1
       end
